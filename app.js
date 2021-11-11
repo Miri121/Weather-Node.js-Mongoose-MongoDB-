@@ -28,6 +28,7 @@ const jwt = require('jsonwebtoken')
 //קריאה משרת מרוחק
 const request = require('request')
 
+//DONT WRITE COMMENT IN HEBREW
 
 
 
