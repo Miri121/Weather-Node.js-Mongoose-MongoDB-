@@ -1,8 +1,6 @@
 const Weather = require('../models/weatherModel');
 const User = require('../models/userModel');
 
-
-//יצירת מזג האוויר
 const createWeather = async (req, res) => {
     try {
         const newWeather = new Weather({
@@ -12,16 +10,12 @@ const createWeather = async (req, res) => {
             userId: req.params.userId
         })
         await newWeather.save()
-        //weather של ה id את ה USER קישור ל 
         await User.findByIdAndUpdate(req.params.userId, { $push: { weather: newWeather._id } })
         res.status(200).json({ message: "success", newWeather: newWeather })
     } catch (error) {
         res.status(400).json({ message: "error", error: error.message })
     }
 }
-
-
-//id קבלת מזג האוויר לפי 
 const getWeather = async (req, res) => {
     try {
         const weather = await Weather.findById(req.params.weatherId)
@@ -31,8 +25,6 @@ const getWeather = async (req, res) => {
     }
 }
 
-
-//pre() מחיקת מזג האוויר וגם מהמשתמש שיצר אותו על ידי פונקציית
 const deleteWeather = async (req, res) => {
     try {
         const weather = await Weather.findById(req.params.weatherId)
@@ -43,7 +35,6 @@ const deleteWeather = async (req, res) => {
         res.status(400).json({ message: "error", error: error.message })
     }
 }
-
 
 module.exports = {
     createWeather,

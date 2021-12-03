@@ -5,13 +5,11 @@ const userSchema= mongoose.Schema({
      type:String,
      require:true,
      trim: true
-     
     },
     password:{
         default:"12345",
         type:String,
         minlength: "5",
-    
     },
     phone:{
         type:String,
@@ -21,21 +19,16 @@ const userSchema= mongoose.Schema({
             },
             message: props => `${props.value} is not a valid phone number!`
         }
-    
     },
     mail:{
         type:String,
         require:true,
         trim: true
-        
        },
-
     weather: [{
          type: mongoose.Schema.Types.ObjectId, ref: "weather"
      }],
-    
     })
-    
     userSchema.pre('findOneAndDelete',async function(next){
         try{
             console.log("pre remove from user");
@@ -45,5 +38,4 @@ const userSchema= mongoose.Schema({
         }
         next()
     }) 
-
     module.exports=mongoose.model('user',userSchema)

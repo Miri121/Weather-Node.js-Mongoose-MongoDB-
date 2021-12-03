@@ -3,7 +3,6 @@ const Weather = require('../models/weatherModel');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken')
 
-//Admin יצירת
 const createAdmin = async (req, res) => {
     try {
         const newAdmin = new Admin({
@@ -18,7 +17,6 @@ const createAdmin = async (req, res) => {
 }
 
 
-//id לפי  Admin  קבלת
 const getAdmin = (req, res) => {
     try {
         const admin = await Admin.findById(req.params.id).populate('userId')
@@ -29,7 +27,6 @@ const getAdmin = (req, res) => {
 }
 
 
-//admin מחיקת 
 const deleteAdmin = async (req, res) => {
     try {
         const admin = await Admin.findByIdAndDelete(req.params.id)

@@ -9,7 +9,6 @@ const adminSchema = mongoose.Schema({
 
 })
 
-
 adminSchema.pre('remove', async function (next) {
     console.log("user in admin remove!!!")
     await User.findByIdAndUpdate(this.userId, { $pull: { weather: this._id } })

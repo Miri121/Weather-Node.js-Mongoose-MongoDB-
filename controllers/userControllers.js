@@ -1,19 +1,13 @@
 const User = require('../models/userModel')
 const Admin = require('../models/adminModel')
-
-//שימוש במייל
 const nodemailer = require('nodemailer')
 const sendCommitmail = require('../nodemailer')
-
 //Jwt//
 //token//
 const jwt = require('jsonwebtoken')
-
-//קריאה משרת מרוחק
 const request = require('request')
 const requestApi = require('../requestApi')
 
-//יצירת משתמש
 const createUser = async (req, res) => {
   try {
     const usnewUser = new User({
@@ -23,10 +17,8 @@ const createUser = async (req, res) => {
       mail: req.body.mail
     })
     await usnewUser.save()
-    //שליחת מייל בעט יצירת משתמש
     await sendCommitmail(usnewUser.mail, usnewUser.name);
 
-    //admin דחיפה משתמש ל
     await Admin.findByIdAndUpdate(req.params.idAdmin, { $push: { userId: usnewUser._id } })
 
     //jwt--token
@@ -38,7 +30,6 @@ const createUser = async (req, res) => {
   }
 }
 
-//כניסת משתמש לשליפת נתונים
 const login = async (req, res) => {
   try {
     const user = await User.findOne({ nameUser: req.params.name })
@@ -55,7 +46,6 @@ const login = async (req, res) => {
   }
 }
 
-
 //קבלת כל המשתמשים ומזג האוויר שלהם
 // const getAllUser = async (req,res) => {
 //   try{
@@ -66,8 +56,6 @@ const login = async (req, res) => {
 //   }
 // }
 
-
-//קבלת משתמש ומזג האוויר שלו
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId).populate('weather')
@@ -77,8 +65,6 @@ const getUserById = async (req, res) => {
   }
 }
 
-//מחיקת משתמש
-//ID מחיקה לפי
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.userId)
@@ -88,8 +74,6 @@ const deleteUser = async (req, res) => {
   }
 }
 
-
-//קריאה משרת מרוחק
 const userRequestApi = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId)
@@ -101,8 +85,6 @@ const userRequestApi = async (req, res) => {
   }
 }
 
-
-// //מחיקה לפי שם
 const deleteUserName = async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ nameUser: req.params.nameUser })
@@ -112,7 +94,6 @@ const deleteUserName = async (req, res) => {
   }
 }
 
-
 module.exports = {
   createUser,
   userRequestApi,
@@ -121,5 +102,4 @@ module.exports = {
   // getAllUser,
   getUserById,
   login,
-
 }
