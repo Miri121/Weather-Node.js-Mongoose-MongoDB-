@@ -37,19 +37,18 @@ const deleteAdmin = async (req, res) => {
     }
 }
 
-//Admin קבלת כל ה 
-// const getAllAdmin = (req, res) => {
-//     try {
-//         const admin = await Admin.find().populate('userId')
-//         res.status(200).json({ message: "success", admin: admin })
-//     } catch (error) {
-//         res.status(400).json({ message: "error", error: error.message })
-//     }
-// }
+const getAllAdmin = (req, res) => {
+    try {
+        const admin = await Admin.find().populate('userId')
+        res.status(200).json({ message: "success", admin: admin })
+    } catch (error) {
+        res.status(400).json({ message: "error", error: error.message })
+    }
+}
 
 module.exports = {
     createAdmin,
     getAdmin,
-    // getAllAdmin,
+    getAllAdmin,
     deleteAdmin
 }
